@@ -1,5 +1,6 @@
 <?php include('../config/connection.php');
-    $get = $pdo->query('SELECT * FROM student');
+    //recuperation des données de la base de données
+    $get = $pdo->query('SELECT * FROM student ORDER BY id DESC');
 ?>
 <?php include('../includes/header.php');?>
 <div class="row">

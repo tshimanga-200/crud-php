@@ -1,4 +1,7 @@
 <?php
+/**
+suppression
+ */
 include('../config/connection.php');
 $id = htmlspecialchars($_GET['id']);
 $delete = $pdo->prepare('DELETE FROM student WHERE id = ?');

@@ -1,7 +1,9 @@
 <?php include('../includes/header.php');?>
 <?php
+//inclusion du fichier de la connection
 include('../config/connection.php');
   $id = htmlspecialchars($_GET['id']);
+  //selection de l'enregistrement à modifier
   $update = $pdo->prepare('SELECT * FROM student WHERE id = ?');
   $update->execute(array($id));
   $result = $update->fetch();
@@ -9,9 +11,10 @@ include('../config/connection.php');
   $postnom = $result['postnom'];
   $promotion = $result['promotion'];
   $universite = $result['universite'];
-
+  //soumission du formulaire
     if(isset($_POST['submit'])){
         if(isset($_POST['nom']) && $_POST['nom']){
+          //modification du nom
             $update_nom = $pdo->prepare("UPDATE student SET nom = ? WHERE id = ?");
             $update_nom->execute(array($_POST['nom'],$id));
             header('Location: voir.php');
@@ -20,6 +23,7 @@ include('../config/connection.php');
       }
 
       if(isset($_POST['postnom']) && $_POST['postnom']){
+        //modification du postnom
         $update_nom = $pdo->prepare("UPDATE student SET postnom = ? WHERE id = ?");
         $update_nom->execute(array($_POST['postnom'],$id));
         header('Location: voir.php');
@@ -28,6 +32,7 @@ include('../config/connection.php');
       }
 
       if(isset($_POST['promotion']) && $_POST['promotion']){
+        //modification du promotion
         $update_nom = $pdo->prepare("UPDATE student SET promotion = ? WHERE id = ?");
         $update_nom->execute(array($_POST['promotion'],$id));
         header('Location: voir.php');
@@ -36,6 +41,7 @@ include('../config/connection.php');
       }
 
       if(isset($_POST['universite']) && $_POST['universite']){
+        //modification du nom de l'université
         $update_nom = $pdo->prepare("UPDATE student SET universite = ? WHERE id = ?");
         $update_nom->execute(array($_POST['universite'],$id));
         header('Location: voir.php');

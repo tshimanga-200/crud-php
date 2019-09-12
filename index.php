@@ -1,16 +1,19 @@
 <?php
+//inclusion du fichier de la connection
 include('config/connection.php');
+//soumition du formaulaire
 if(isset($_POST['submit'])){
+  //test sur le donnée à soumèttre 
     if(isset($_POST['nom']) && $_POST['nom']){
         if(isset($_POST['postnom']) && $_POST['postnom']){
             if(isset($_POST['promotion']) && $_POST['promotion']){
                 if(isset($_POST['universite']) && $_POST['universite']){
-
+                    //affectation de variable
                     $nom = htmlspecialchars($_POST['nom']);
                     $postnom = htmlspecialchars($_POST['postnom']);
                     $promotion = htmlspecialchars($_POST['promotion']);
                     $universite = htmlspecialchars($_POST['universite']);
-
+                    //insertion dans la base de donneés
                     $insert = $pdo->prepare('INSERT INTO student (nom,postnom,promotion,universite) VALUES (?,?,?,?)');
                     $insert->execute(array($nom,$postnom,$promotion,$universite));
                     $succe = "Votre enregistrement à reussit";
@@ -44,6 +47,7 @@ if(isset($_POST['submit'])){
         <div class="row">
             <div class="col-md-8">
                          <?php
+                         //affichage en cas d'erreur
                             if(isset($error)){
                               echo "<div class=\"alert-danger\">$error</div>";
                             }else{
@@ -69,6 +73,7 @@ if(isset($_POST['submit'])){
                             </form>
                             <?php
                             if(isset($succe)){
+                              //affichage en cas de success
                               echo "<div class=\"alert-success\">$succe</div>";
                             }else{
                               echo "<br>";
