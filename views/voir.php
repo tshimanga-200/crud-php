@@ -6,7 +6,7 @@
     <div class="col-md-offset-3 col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h4>List of student</h4>
+                <h1>List of student</h1>
             </div>
             <div class="panel-body">
                 <table class="table table-striped">
