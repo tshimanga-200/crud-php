@@ -1,7 +1,44 @@
+<?php
+include('config/connection.php');
+if(isset($_POST['submit'])){
+    if(isset($_POST['nom']) && $_POST['nom']){
+        if(isset($_POST['postnom']) && $_POST['postnom']){
+            if(isset($_POST['promotion']) && $_POST['promotion']){
+                if(isset($_POST['universite']) && $_POST['universite']){
+
+                    $nom = htmlspecialchars($_POST['nom']);
+                    $postnom = htmlspecialchars($_POST['postnom']);
+                    $promotion = htmlspecialchars($_POST['promotion']);
+                    $universite = htmlspecialchars($_POST['universite']);
+
+                    $insert = $pdo->prepare('INSERT INTO student (nom,postnom,promotion,universite) VALUES (?,?,?,?)');
+                    $insert->execute(array($nom,$postnom,$promotion,$universite));
+                    $succe = "Votre enregistrement à reussit";
+                }else{
+                    $error = "Veuillez entrez le nom de votre université";
+                }
+            }else{
+                $error = "Determiner votre promotion svp";
+            }
+        }else{
+            $error = "Veuillez saisir votre postnom";
+        }
+    }else{
+        $error = "Veuillez saisir votre nom";
+    }
+}
+?>
 <?php include('includes/header.php');?>
         <div class="row">
-            <div class="col-md-12">
-                <h1>Add student</h1>
+            <div class="col-md-6">
+               <div class="row">
+                    <div class="col-md-6">
+                        <h1>Add student</h1>
+                    </div>
+                    <div class="col-md-6">
+                       <a href="views/voir.php" class="btn btn-primary">View all student</a>
+                    </div>
+               </div>
             </div>
         </div>
         <div class="row">
