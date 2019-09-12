@@ -1,4 +1,49 @@
 <?php include('../includes/header.php');?>
+<?php
+include('../config/connection.php');
+  $id = htmlspecialchars($_GET['id']);
+  $update = $pdo->prepare('SELECT * FROM student WHERE id = ?');
+  $update->execute(array($id));
+  $result = $update->fetch();
+  $nom = $result['nom'];
+  $postnom = $result['postnom'];
+  $promotion = $result['promotion'];
+  $universite = $result['universite'];
+
+    if(isset($_POST['submit'])){
+        if(isset($_POST['nom']) && $_POST['nom']){
+            $update_nom = $pdo->prepare("UPDATE student SET nom = ? WHERE id = ?");
+            $update_nom->execute(array($_POST['nom'],$id));
+            header('Location: voir.php');
+      }else{
+          $error = "Veuillez saisir votre nom";
+      }
+
+      if(isset($_POST['postnom']) && $_POST['postnom']){
+        $update_nom = $pdo->prepare("UPDATE student SET postnom = ? WHERE id = ?");
+        $update_nom->execute(array($_POST['postnom'],$id));
+        header('Location: voir.php');
+      }else{
+          $error = "Veuillez saisir votre postnom";
+      }
+
+      if(isset($_POST['promotion']) && $_POST['promotion']){
+        $update_nom = $pdo->prepare("UPDATE student SET promotion = ? WHERE id = ?");
+        $update_nom->execute(array($_POST['promotion'],$id));
+        header('Location: voir.php');
+      }else{
+          $error = "Veuillez saisir votre promotion";
+      }
+
+      if(isset($_POST['universite']) && $_POST['universite']){
+        $update_nom = $pdo->prepare("UPDATE student SET universite = ? WHERE id = ?");
+        $update_nom->execute(array($_POST['universite'],$id));
+        header('Location: voir.php');
+      }else{
+          $error = "Veuillez saisir votre université";
+      }
+    }
+?>
         <div class="row">
             <div class="col-md-6">
                <div class="row">
@@ -9,7 +54,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                          <?php
                             if(isset($error)){
                               echo "<div class=\"alert-danger\">$error</div>";
@@ -19,28 +64,19 @@
                           ?>
                             <form action="" method="post" role="form" class="contactForm">
                               <div class="form-group">
-                                <input type="text" name="nom" class="form-control" id="name" placeholder="*Votre nom">
+                                <input type="text" name="nom" class="form-control" value="<?=$nom;?>">
                               </div>
                               <div class="form-group">
-                                <input type="text" name="postnom" class="form-control" id="name" placeholder="*Votre postnom">
+                                <input type="text" name="postnom" class="form-control" value="<?=$postnom;?>">
                               </div>
                               <div class="form-group">
-                                <input type="text" name="promotion" class="form-control" id="name" placeholder="*Votre promotion">
+                                <input type="text" name="promotion" class="form-control" value="<?=$promotion;?>">
                               </div>
                               <div class="form-group">
-                                <input type="text" name="universite" class="form-control" id="name" placeholder="*Votre université">
-                              </div>
-                              
-                              
+                                <input type="text" name="universite" class="form-control" value="<?=$universite;?>">
+                              </div>                        
                              <div class="text-center"><button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Update</button></div>
-                            </form>
-                            <?php
-                            if(isset($succe)){
-                              echo "<div class=\"alert-success\">$succe</div>";
-                            }else{
-                              echo "<br>";
-                            }
-                            ?>
+                      </form>
             </div>
         </div>
         <?php include('../includes/footer.php');?>
